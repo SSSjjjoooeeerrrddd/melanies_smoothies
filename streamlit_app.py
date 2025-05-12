@@ -1,6 +1,5 @@
 ## Import python packages
 import streamlit as st
-from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 
 ## Create a title and first text
@@ -12,7 +11,8 @@ name_on_order = st.text_input("Name on Smoothie")
 st.write("The name of your smoothie will be:", name_on_order)
 
 # We start a session because we are going to load data from a table in the cloud (Sf database)
-session = get_active_session()
+cnx = st.connection("snowflake")
+session = cnx.session()
 
 ## Get table as df and write df
 my_dataframe = session.table("smoothies.public.fruit_options").select(col("FRUIT_NAME"))
