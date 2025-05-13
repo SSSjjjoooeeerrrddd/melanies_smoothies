@@ -2,6 +2,7 @@
 import streamlit as st
 from snowflake.snowpark.functions import col
 import requests
+import pandas as pd
 
 ## Create a title and first text
 st.title(":cup_with_straw: Customize Your Smoothie! :cup_with_straw:")
@@ -17,7 +18,10 @@ session = cnx.session()
 
 ## Get table as df and write df
 my_dataframe = session.table("smoothies.public.fruit_options").select(col("FRUIT_NAME"),col("SEARCH_0N"))
-st.dataframe(data=my_dataframe, use_container_width=True)
+# st.dataframe(data=my_dataframe, use_container_width=True)
+## Convert to pandas so we can use .loc[]
+pd_df = my_dataframe.to_pandas()
+st.dataframe(pd_df)
 st.stop()
 
 ## Create a multiselect for ingredients
