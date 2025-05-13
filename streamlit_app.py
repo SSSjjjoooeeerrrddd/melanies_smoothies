@@ -17,7 +17,7 @@ cnx = st.connection("snowflake")
 session = cnx.session()
 
 ## Get table as df and write df
-my_dataframe = session.table("smoothies.public.fruit_options").select(col("FRUIT_NAME"),col("SEARCH_0N"))
+my_dataframe = session.table("smoothies.public.fruit_options").select(col("FRUIT_NAME"),col("SEARCH_ON"))
 # st.dataframe(data=my_dataframe, use_container_width=True)
 ## Convert to pandas so we can use .loc[]
 pd_df = my_dataframe.to_pandas()
